@@ -23,50 +23,58 @@ export default function Header() {
     router.push('/')
   }
 
+  const linkStyle = {
+    textDecoration: 'none',
+    color: '#ffffff',
+    fontWeight: 600,
+    padding: '0.35rem 0.6rem',
+    borderRadius: 999,
+  }
+
   return (
-    <header style={{ position: 'sticky', top: 0, background: '#fff', borderBottom: '1px solid #e6e9ef', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 100 }}>
-      <button aria-label="Toggle menu" onClick={() => setOpen(!open)} style={{ background: 'transparent', border: 'none', padding: 8, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
-        <span style={{ display: 'block', width: 22, height: 2, background: '#111' }} />
-        <span style={{ display: 'block', width: 16, height: 2, background: '#111' }} />
-        <span style={{ display: 'block', width: 10, height: 2, background: '#111' }} />
+    <header style={{ position: 'sticky', top: 0, background: '#112866', borderBottom: '1px solid rgba(255,255,255,0.16)', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 100 }}>
+      <button aria-label="Toggle menu" onClick={() => setOpen(!open)} style={{ background: 'transparent', border: 'none', padding: 8, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4, cursor: 'pointer' }}>
+        <span style={{ display: 'block', width: 22, height: 2, background: '#ffffff' }} />
+        <span style={{ display: 'block', width: 16, height: 2, background: '#ffffff' }} />
+        <span style={{ display: 'block', width: 10, height: 2, background: '#ffffff' }} />
       </button>
 
-      <div style={{ fontWeight: 700 }}>KofC Zanesville</div>
+      <div style={{ fontWeight: 700, fontSize: '1.1rem', fontFamily: 'McGivney, Georgia, serif', letterSpacing: '0.02em' }}>KofC Zanesville</div>
 
-      <nav style={{ display: 'flex', gap: '0.75rem', marginLeft: '1rem' }}>
-        <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
-        <Link href="/events" style={{ textDecoration: 'none', color: 'inherit' }}>Events</Link>
-        <Link href="/newsletters" style={{ textDecoration: 'none', color: 'inherit' }}>Newsletters</Link>
+      <nav style={{ display: 'flex', gap: '0.35rem', marginLeft: '1rem', flexWrap: 'wrap' }}>
+        <Link href="/" style={linkStyle} onClick={() => setOpen(false)}>Home</Link>
+        <Link href="/events" style={linkStyle} onClick={() => setOpen(false)}>Events</Link>
+        <Link href="/newsletters" style={linkStyle} onClick={() => setOpen(false)}>Newsletters</Link>
         {user && user.isAdmin && (
-          <Link href="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>Admin</Link>
+          <Link href="/admin" style={linkStyle} onClick={() => setOpen(false)}>Admin</Link>
         )}
       </nav>
 
       <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
         {user ? (
           <>
-            <Link href="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>{user.name || user.email}</Link>
-            <button onClick={handleLogout} style={{ background: '#ef4444', color: '#fff', border: 'none', padding: '0.4rem 0.6rem', borderRadius: 6, cursor: 'pointer' }}>Logout</button>
+            <Link href="/profile" style={{ textDecoration: 'none', color: '#ffffff', fontWeight: 600 }} onClick={() => setOpen(false)}>{user.name || user.email}</Link>
+            <button onClick={handleLogout} style={{ background: '#F7b718', color: '#ffffff', border: '1px solid #F7b718', padding: '0.5rem 0.75rem', borderRadius: 999, cursor: 'pointer', fontWeight: 700 }}>Logout</button>
           </>
         ) : (
-          <Link href="/auth">
-            <button style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.5rem 0.75rem', borderRadius: 6, cursor: 'pointer' }}>Login</button>
+          <Link href="/auth" style={{ textDecoration: 'none' }} onClick={() => setOpen(false)}>
+            <button style={{ background: '#ffffff', color: '#112866', border: '1px solid #ffffff', padding: '0.5rem 0.75rem', borderRadius: 999, cursor: 'pointer', fontWeight: 700 }}>Login</button>
           </Link>
         )}
       </div>
 
       {open && (
-        <div style={{ position: 'fixed', left: 0, top: 0, height: '100vh', width: 260, background: '#fff', boxShadow: '2px 0 12px rgba(0,0,0,0.12)', padding: 20 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <div style={{ fontWeight: 700 }}>Menu</div>
-            <button aria-label="Close menu" onClick={() => setOpen(false)} style={{ background: 'transparent', border: 'none', fontSize: 18 }}>×</button>
+        <div style={{ position: 'fixed', left: 0, top: 0, height: '100vh', width: 280, background: '#112866', color: '#ffffff', boxShadow: '2px 0 16px rgba(0,0,0,0.2)', padding: 24 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+            <div style={{ fontWeight: 700, fontFamily: 'McGivney, Georgia, serif' }}>Menu</div>
+            <button aria-label="Close menu" onClick={() => setOpen(false)} style={{ background: 'transparent', border: 'none', fontSize: 20, color: '#ffffff', cursor: 'pointer' }}>×</button>
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/events">Events</Link></li>
-            <li><Link href="/profile">Users</Link></li>
-            <li><Link href="/newsletters">Newsletters</Link></li>
-            <li><Link href="/meetings">Meetings</Link></li>
+            <li><Link href="/" onClick={() => setOpen(false)} style={{ textDecoration: 'none', color: '#ffffff', fontWeight: 600 }}>Home</Link></li>
+            <li><Link href="/events" onClick={() => setOpen(false)} style={{ textDecoration: 'none', color: '#ffffff', fontWeight: 600 }}>Events</Link></li>
+            <li><Link href="/profile" onClick={() => setOpen(false)} style={{ textDecoration: 'none', color: '#ffffff', fontWeight: 600 }}>Users</Link></li>
+            <li><Link href="/newsletters" onClick={() => setOpen(false)} style={{ textDecoration: 'none', color: '#ffffff', fontWeight: 600 }}>Newsletters</Link></li>
+            <li><Link href="/meetings" onClick={() => setOpen(false)} style={{ textDecoration: 'none', color: '#ffffff', fontWeight: 600 }}>Meetings</Link></li>
           </ul>
         </div>
       )}
